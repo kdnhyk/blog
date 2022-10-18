@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { createGlobalStyle } from "styled-components";
+import { Route, Routes } from "react-router-dom";
+import Header from "./components/Header";
+import Main from "./components/Main";
+import Calculator from "./pages/Calculator";
+import Lots from "./pages/Lots";
 
-function App() {
+const GlobalStyle = createGlobalStyle`
+  body {
+    background: black;
+    color: white;
+    a {
+    text-decoration: none;
+    color: white;
+    }
+  }
+
+`;
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle />
+      <Header />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/Calculator" element={<Calculator />} />
+        <Route path="/Lots" element={<Lots />} />
+      </Routes>
+    </>
   );
 }
-
-export default App;
