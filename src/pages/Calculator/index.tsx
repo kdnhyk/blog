@@ -60,7 +60,7 @@ const Button = styled.button`
   border-radius: 12px;
 `;
 
-function App() {
+export default function App() {
   const [answer, setAnswer] = useState("");
   const [value, setVaule] = useState("");
   const [isDot, setIsDot] = useState(false);
@@ -175,5 +175,3 @@ function App() {
     </CalculatorBlock>
   );
 }
-
-export default App;

@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Main from "./components/Main";
 import Calculator from "./pages/Calculator";
 import Lots from "./pages/Lots";
+import GuestRoom from "./pages/GuestRoom";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="/" element={<Main />} />
         <Route path="/Calculator" element={<Calculator />} />
         <Route path="/Lots" element={<Lots />} />
+        <Route path="/GuestRoom" element={<GuestRoom />} />
       </Routes>
     </>
   );

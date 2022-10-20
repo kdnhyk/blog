@@ -4,11 +4,12 @@ import Input from "./components/Input";
 
 const LotsBlock = styled.div`
   width: 60vw;
-  min-width: 16rem;
+  min-width: 480px;
   height: 60vh;
   min-height: 16rem;
   margin: 0 auto;
-  margin-top: 1em;
+  margin-top: 30px;
+  background: grey;
   * {
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -28,7 +29,7 @@ const LotsBlock = styled.div`
   }
 `;
 
-function Lots() {
+export default function Lots() {
   return (
     <LotsBlock>
       <List />
@@ -36,5 +37,3 @@ function Lots() {
     </LotsBlock>
   );
 }
-
-export default Lots;

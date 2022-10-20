@@ -1,20 +1,27 @@
 import styled from "styled-components";
 import Item from "./Item";
-import Cards, { IsCard } from "../store";
+import { IsCard } from "../store";
+import HandleCards from "../hooks/HandleCards";
 
 const ListBlock = styled.ul`
   width: 100%;
   height: 100%;
   display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: repeat(auto-fill, 6rem);
-  grid-template-rows: repeat(auto-fill, 2.5rem);
-  gap: 0.5rem;
-  overflow: auto;
+  @media screen and (min-width: 480px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @media screen and (min-width: 1200px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  gap: 10px;
 `;
 
 export default function List() {
-  const { cards } = Cards();
+  const { cards } = HandleCards();
 
   return (
     <ListBlock>

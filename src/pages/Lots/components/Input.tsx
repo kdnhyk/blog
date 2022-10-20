@@ -1,123 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "./Modal";
-import Cards from "../store";
+import HandleCards from "../hooks/HandleCards";
 
-const InputBlock = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-auto-flow: column;
-  gap: 0.125em;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  .input-select {
-    grid-column: span 2;
-    display: flex;
-    width: 100%;
-    border: 2px solid #c7b6ff;
-    border-radius: 0.3rem;
-    box-sizing: border-box;
-    position: relative;
-    .input-select-left {
-      background: white;
-      color: black;
-      border-top-left-radius: 0.2rem;
-      border-bottom-left-radius: 0.2rem;
-      padding: 0 0.2rem 0 0.2rem;
-    }
-    select {
-      flex-grow: 1;
-      border-left: 2px solid #c7b6ff;
-      border-right: 2px solid #c7b6ff;
-      font-size: 1rem;
-      option {
-        background-color: $bg;
-        color: $col;
-      }
-    }
-    .input-select-right {
-      background: white;
-      color: black;
-      border-top-right-radius: 0.2rem;
-      border-bottom-right-radius: 0.2rem;
-      padding: 0 0.2rem 0 0.2rem;
-    }
-  }
-
-  .modal {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 0;
-    display: flex;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.4);
-    animation: modal-bg-show 0.3s;
-    .modal-section {
-      position: relative;
-      z-index: 100;
-      width: 12.5em;
-      height: fit-content;
-      max-height: 80vh;
-      margin: 0 auto;
-      border-radius: 0.25rem;
-      background: $bg;
-      color: $col;
-      border: 1px solid $col;
-      animation: modal-show 0.3s;
-
-      overflow: auto;
-      header {
-        width: 100%;
-        height: fit-content;
-        padding: 0.25rem;
-        border-bottom: 1px solid $col;
-        box-sizing: border-box;
-        position: relative;
-        .modal-button {
-          height: 1rem;
-          font-size: 1rem;
-          background: transparent;
-          color: $col;
-          position: absolute;
-          top: 0;
-          right: 0;
-          &:hover {
-            color: lighten($col, 10%);
-          }
-          &:toactivatecard {
-            color: lighten($col, 15%);
-          }
-        }
-      }
-      main {
-        padding: 0.25rem;
-      }
-    }
-  }
-  @keyframes modal-show {
-    from {
-      opacity: 0;
-      margin-top: -50px;
-    }
-    to {
-      opacity: 1;
-      margin-top: 0;
-    }
-  }
-  @keyframes modal-bg-show {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-`;
-function Input() {
+export default function Input() {
   const {
     cards,
     toReset,
@@ -126,7 +12,7 @@ function Input() {
     toEnterAutoInput,
     toActivateCard,
     toWinCard,
-  } = Cards();
+  } = HandleCards();
 
   const totalCardsNum = cards.length;
 
@@ -171,7 +57,7 @@ function Input() {
 
   return (
     <InputBlock>
-      <div className="input-select">
+      <SelectWrapperBlock>
         <h4 className="input-select-left">총 {cards.length}명 중</h4>
         <select onChange={onChange}>
           {options.map((option) => (
@@ -181,11 +67,13 @@ function Input() {
           ))}
         </select>
         <h4 className="input-select-right">명</h4>
-      </div>
-      <button onClick={toAddCard}>추가</button>
-      <button onClick={toReset}>초기화</button>
-      <button onClick={onStart}>시작</button>
-      <button onClick={ontoEnterAutoInput}>자동입력</button>
+      </SelectWrapperBlock>
+      <ButtonBlock onClick={toAddCard}>추가</ButtonBlock>
+      <ButtonBlock onClick={toReset}>초기화</ButtonBlock>
+      <ButtonBlock bgColor="#6966FF" onClick={onStart}>
+        시작
+      </ButtonBlock>
+      <ButtonBlock onClick={ontoEnterAutoInput}>자동입력</ButtonBlock>
       {isOpen && (
         <Modal isOpen={isOpen} onClose={closeModal} lotsCards={lotsCards} />
       )}
@@ -193,4 +81,23 @@ function Input() {
   );
 }
 
-export default Input;
+const InputBlock = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-auto-flow: column;
+  gap: 1px;
+  margin-top: 10px;
+`;
+
+const SelectWrapperBlock = styled.div`
+  grid-column: span 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ButtonBlock = styled.button<{ bgColor?: string }>`
+  background: ${({ bgColor }) => (bgColor ? bgColor : "transparent")};
+  color: white;
+`;

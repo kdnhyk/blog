@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import Cards, { IsCard } from "../store";
+import { IsCard } from "../store";
+import HandleCards from "../hooks/HandleCards";
 
 const ItemBlock = styled.div`
-  width: 6rem;
-  height: 100%;
+  width: 150px;
+  height: 60px;
   background: white;
   display: flex;
   justify-content: center;
@@ -48,7 +49,7 @@ interface IsItem {
 
 export default function Item({ card }: IsItem) {
   const { toActivateCard, toUnactivateCard, toChangeCardName, toDelCard } =
-    Cards();
+    HandleCards();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.value;
